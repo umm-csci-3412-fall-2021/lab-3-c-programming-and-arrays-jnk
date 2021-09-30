@@ -58,3 +58,8 @@ private boolean needsSorting(int rangeSize) {
 }
 
 
+bool needsSorting(int rangeSize){
+  return rangeSize >= 2;
+}
+
+
