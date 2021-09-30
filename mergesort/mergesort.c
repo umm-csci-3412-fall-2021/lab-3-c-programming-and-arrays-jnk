@@ -3,7 +3,7 @@
 void mergesort(int size, int values[]) {
   // This obviously doesn't actually do any *sorting*, so there's
   // certainly work still to be done.
-  mergesortRange(values, 0, values.length);
+  mergesortRange(values, 0, values[-1]);
 }
 
 void mergesortRange(int values[], int startIndex, int endIndex) {
@@ -27,10 +27,10 @@ void mergeRanges(int values[], int startIndex, int midPoint, int endIndex) {
       destination[copyIndex] = values[firstIndex];
       ++firstIndex;
     }
-    
+
     else {
       destination[copyIndex] = values[firstIndex];
-      ++secondIndex;    
+      ++secondIndex;
     }
     ++copyIndex;
   }
@@ -46,7 +46,7 @@ void mergeRanges(int values[], int startIndex, int midPoint, int endIndex) {
     ++copyIndex;
     ++secondIndex;
   }
-  
+
   int i;
   for(int i = 0; i < rangeSize; ++i) {
     values[i + startIndex] = destination[i];
