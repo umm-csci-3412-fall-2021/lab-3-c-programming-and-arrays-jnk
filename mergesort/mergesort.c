@@ -19,3 +19,8 @@ void mergeRanges(int values[], int startIndex, int midPoint, int endIndex) {
 }
 
 
+bool needsSorting(int rangeSize){
+  return rangeSize >= 2;
+}
+
+
