@@ -9,13 +9,19 @@ int totalSize(int length, int* array){
   return size
 }
 
-int* mergeSub(int** arr, int* size, int num){
-
+int* mergeSubarrays(int length, int** subArrays){
+  int *unsortedArr = (int*) calloc(length, sizeof(int));
+  int copyIndex = 0;
+  for(int i = 0; i < length; ++i){
+  	destination[copyIndex] = subArrays[i];
+	++copyIndex;
+  }
 }
 
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
-  int total_size;
+  int total_size = totalSize(numArrays, sizes);
+  mergeSubarrays(total_size, int** values);
   /*
    * IDEA FOR APPROACHING THIS TASK
    * 1. We merge all of the subarrays together (maybe through iterating through a for loop?)
