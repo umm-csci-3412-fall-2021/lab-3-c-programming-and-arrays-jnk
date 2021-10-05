@@ -1,16 +1,16 @@
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "mergesort.h"
 
-void mergesort(int size, int values[]) {
-  // This obviously doesn't actually do any *sorting*, so there's
-  // certainly work still to be done.
-  mergesortRange(values, 0, size-1);
+bool needsSorting(int rangeSize){
+  return rangeSize >= 2;
 }
 
-void mergeRanges(int values[], int startIndex, int midPoint, int endIndex) {
+
+void mergeRanges(int *values, int startIndex, int midPoint, int endIndex) {
   const int rangeSize = endIndex - startIndex;
-  int destination[rangeSize];
+  int *destination = (int*) calloc(rangeSize, sizeof(int));
   int firstIndex = startIndex;
   int secondIndex = midPoint;
   int copyIndex = 0;
@@ -22,14 +22,14 @@ void mergeRanges(int values[], int startIndex, int midPoint, int endIndex) {
     }
 
     else {
-      destination[copyIndex] = values[firstIndex];
+      destination[copyIndex] = values[secondIndex];
       ++secondIndex;
     }
     ++copyIndex;
   }
 
   while(firstIndex < midPoint) {
-    destination[copyIndex] = values[secondIndex];
+    destination[copyIndex] = values[firstIndex];
     ++copyIndex;
     ++firstIndex;
   }
@@ -39,14 +39,13 @@ void mergeRanges(int values[], int startIndex, int midPoint, int endIndex) {
     ++copyIndex;
     ++secondIndex;
   }
-
-  int i;
   for(int i = 0; i < rangeSize; ++i) {
     values[i + startIndex] = destination[i];
   }
+  free(destination);
 }
 
-void mergesortRange(int values[], int startIndex, int endIndex) {
+void mergesortRange(int *values, int startIndex, int endIndex) {
   int rangeSize = endIndex - startIndex;
   if (needsSorting(rangeSize)) {
     int midPoint = (startIndex + endIndex) / 2;
@@ -54,9 +53,12 @@ void mergesortRange(int values[], int startIndex, int endIndex) {
     mergesortRange(values, midPoint, endIndex);
     mergeRanges(values, startIndex, midPoint, endIndex);
   }
-
-bool needsSorting(int rangeSize){
-  return rangeSize >= 2;
 }
+
+void mergesort(int size, int *values) {
+  mergesortRange(values, 0, size);
+}
+
+
 
 
