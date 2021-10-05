@@ -3,25 +3,54 @@
 
 int totalSize(int length, int* array){
   int size = 0;
-  for(int i = 0, i < length, ++i){
+  for(int i = 0; i < length; ++i){
   	size = array[i] + size;
   }
-  return size
+  return size;
 }
 
-int* mergeSubarrays(int length, int** subArrays){
-  int *unsortedArr = (int*) calloc(length, sizeof(int));
+int* mergeSubarrays(int length, int* size, int** subArrays){
+  int total_size = totalSize(length, size);
+  int *unsorted_arr = (int*) calloc(total_size, sizeof(int));
   int copyIndex = 0;
   for(int i = 0; i < length; ++i){
-  	destination[copyIndex] = subArrays[i];
+  	for(int j = 0; j < size[i]; ++j){
+		unsorted_arr[copyIndex] = subArrays[i][j];
+	}
 	++copyIndex;
   }
+  return unsorted_arr;
 }
 
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
-  int total_size = totalSize(numArrays, sizes);
-  mergeSubarrays(total_size, int** values);
+  int total_size_arr = totalSize(num_arrays, sizes);
+  int* unordered_arr = mergeSubarrays(num_arrays, sizes, values);
+
+  mergesort(total_size_arr, unordered_arr);
+
+  int sortedInd = 0;
+
+  for(int i = 0; i < total_size_arr-1; i++){
+  	if(unordered_arr[i] != unordered_arr[i+1]){
+		++sortedInd;
+	}
+  }
+
+  int *sorted_arr = (int*) calloc(sortedInd+1, sizeof(int));
+
+  sorted_arr[0] = sortedInd;
+
+  for(int i = 0; i < total_size_arr; i++){
+        for(int j = 1; j < sortedInd; j++){
+		if(unordered_arr[i] != unordered_arr[i+1]){
+			sorted_arr[j] = unordered_arr[i];
+		}
+	}
+  }
+
+
+  return sorted_arr;
   /*
    * IDEA FOR APPROACHING THIS TASK
    * 1. We merge all of the subarrays together (maybe through iterating through a for loop?)
@@ -30,7 +59,6 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
    * 4. Finally, we get the size of the array and insert said size value into the array.
    *
    */
-  return sizes;
 }
 
 
