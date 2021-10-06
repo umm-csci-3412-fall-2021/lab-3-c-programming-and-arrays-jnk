@@ -16,8 +16,8 @@ int* mergeSubarrays(int length, int* size, int** subArrays){
   for(int i = 0; i < length; ++i){
   	for(int j = 0; j < size[i]; ++j){
 		unsorted_arr[copyIndex] = subArrays[i][j];
+		++copyIndex;
 	}
-	++copyIndex;
   }
   return unsorted_arr;
 }
@@ -31,7 +31,7 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
 
   int sortedInd = 0;
 
-  for(int i = 0; i < total_size_arr-1; i++){
+  for(int i = 0; i < total_size_arr; i++){
   	if(unordered_arr[i] != unordered_arr[i+1]){
 		++sortedInd;
 	}
@@ -41,15 +41,16 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
 
   sorted_arr[0] = sortedInd;
 
+  int nodupe_ind = 1;
+
   for(int i = 0; i < total_size_arr; i++){
-        for(int j = 1; j < sortedInd; j++){
 		if(unordered_arr[i] != unordered_arr[i+1]){
-			sorted_arr[j] = unordered_arr[i];
+			sorted_arr[nodupe_ind] = unordered_arr[i];
+			++nodupe_ind;
 		}
-	}
   }
 
-
+  free(unordered_arr);
   return sorted_arr;
   /*
    * IDEA FOR APPROACHING THIS TASK
